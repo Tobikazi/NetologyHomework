@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.Scanner;
 
 public class Main {
@@ -11,17 +10,17 @@ public class Main {
             new Product("Яблоки (1 кг.)", 140.0),
     };
 
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         Scanner sc = new Scanner(System.in);
         String s;
         Basket shoppingCart = new Basket(products);
         int selectedItem;
         int itemCount;
-        File basketFile = new File("basket.txt");
+        File basketFile = new File("basket.bin");
         if (basketFile.exists()) {
             System.out.println("Перезаписать список?");
             if (sc.nextLine().equals("")) {
-                shoppingCart = Basket.loadFromTxtFile(basketFile);
+                shoppingCart = Basket.loadFromBinFile(basketFile);
             }
         }
         while (true) {
@@ -40,7 +39,7 @@ public class Main {
                         continue;
                     }
                     shoppingCart.addToCart(selectedItem - 1, itemCount);
-                    shoppingCart.saveTxt(basketFile);
+                    shoppingCart.saveBin(basketFile);
                 } catch (NumberFormatException nfe) {
                     System.out.println("\nИспользовать нужно целые числа");
                 } catch (FileNotFoundException e) {
