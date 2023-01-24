@@ -48,7 +48,7 @@ public class Basket implements Serializable {
     }
     public static Basket loadFromTxtFile(File file) throws IOException, ParseException {
         Scanner sc = new Scanner(file);
-        List<Product> product = new ArrayList<>();
+        List<Product> products = new ArrayList<>();
         String name;
         double price;
         NumberFormat nf = NumberFormat.getInstance();
@@ -56,8 +56,8 @@ public class Basket implements Serializable {
             String[] d = sc.nextLine().split("_");
             name = d[0];
             price = nf.parse(d[1]).doubleValue();
-            product.add(new Product(name, price));
+            products.add(new Product(name, price));
         }
-        return new Basket(product.toArray(Product[]::new));
+        return new Basket(products.toArray(Product[]::new));
     }
 }
